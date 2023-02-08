@@ -1,19 +1,10 @@
 import express from "express";
-import db from "./src/config/Database.js";
-import router from "./src/routes/index.js";
+import { addUsers, getAllUsers, getUsers } from "../controller/Users-controller.js";
 
-const app = express();
+const router = express.Router();
 
-app.listen(5000, () => {
-    console.log(`Server is running at ${5000}`)
-});
+router.get('/v1/users/:id', getUsers);
+router.get('/v1/users', getAllUsers);
+router.post('/v1/users', addUsers);
 
-try {
-    await db.authenticate();
-    console.log(`Database has connected`);
-} catch (error) {
-    console.log(error);
-}
-
-app.use(express.json());
-app.use(router);
+export default router;
